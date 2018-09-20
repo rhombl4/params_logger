@@ -1,0 +1,17 @@
+<h1>params-logger</h1>
+<h2>History:</h2>
+<pre id="history"></pre>
+<h2>Path:</h2>
+<pre id="path">
+  <%= params[:path] %>
+</pre>
+<h2>Params:</h2>
+<pre id="params">
+  <%= params %>
+</pre>
+<h2>Headers:</h2>
+<code id="headers">
+  <% @headers_filtered.each do |header| %>
+    <%= header %><br>
+  <% end %>
+</code>
