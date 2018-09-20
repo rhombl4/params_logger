@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'params/logging'
-  root 'params#logging'
-  match '*path', controller: 'params', action: 'ok', via: :all, as: :any_path
-    # :path=> /.*/,
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'params/auth'
+  post 'params/check_auth', as: 'check'
+  root 'params#any'
+  match '*path', controller: 'params', action: 'any', via: :all, as: :any
 end

@@ -1,0 +1,12 @@
+<h1>Authenticate</h1>
+<%= form_tag check_path do -%>
+  <div>
+    <%= label_tag 'login', 'Login' %>
+    <%= text_field_tag :login %>
+  </div>
+  <div>
+    <%= label_tag 'password', 'Password' %>
+    <%= text_field_tag :password %>
+  </div>
+  <div><%= submit_tag 'Send' %></div>
+<% end -%>
