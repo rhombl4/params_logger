@@ -1,24 +1,9 @@
-# README
+PARAMS-LOGGER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Logger for params and headers. Pushes ws notifications to any request to service.
+This tool intended to debug callbacks.
 
-Things you may want to cover:
+Goto params/logging to inspect requests
+auth with login:password, password:login
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+also deployed on heroku: https://action-logger.herokuapp.com/
