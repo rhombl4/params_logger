@@ -26,4 +26,17 @@
   </code>
 </details>
 <h2>Notifications:</h2>
-<div id="notifications"></div>
+<div id="notifications">
+  <% @data.each do |item| -%>
+    <pre class="jsonified"><%= item.to_json %></pre>
+  <% end -%>
+</div>
+<script>
+  $(document).ready(function(){
+    $('.jsonified').each(
+      function(){
+        this.textContent = JSON.stringify(JSON.parse(this.textContent), undefined, 2)
+      }
+    )
+  })
+</script>

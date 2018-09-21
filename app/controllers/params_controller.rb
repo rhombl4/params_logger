@@ -4,10 +4,12 @@ class ParamsController < ApplicationController
     @path = results[:path]
     @params = results[:params]
     @headers_filtered = results[:headers].map { |k, v| "#{k}: #{v}" }
+    @data = read
   end
 
   def any
     notify results
+    push_value results
 
     if params[:success] == 'false'
       render json: { success: false, error_code: 'INVALID_RESPONSE' }, status: 404
@@ -61,5 +63,24 @@ class ParamsController < ApplicationController
 
   def set_auth!
     session[:auth] = true
+  end
+
+  def cache
+    @cache ||= Rails.cache #ActiveSupport::Cache::RedisCacheStore.new(expires_in: 10.seconds)
+  end
+
+  def store(array)
+    cache.write('hist', array, expires_in: 100.hours)
+  end
+
+  def read
+    cache.fetch('hist') { [] }
+  end
+
+  def push_value(hash)
+    array = read
+    array.pop while array.length >= 5
+    array.unshift hash
+    store array
   end
 end
