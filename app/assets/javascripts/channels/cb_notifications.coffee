@@ -8,4 +8,5 @@ App.cb_notifications = App.cable.subscriptions.create "CBNotificationsChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    $('#notifications').append "<pre>#{JSON.stringify(data['message'], undefined, 2)}</pre>"
+    $('#notifications').prepend "<pre>#{JSON.stringify(data['message'], undefined, 2)}</pre>"
+    $('#notifications pre:gt(50)').remove()
