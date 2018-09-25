@@ -1,7 +1,6 @@
 class ParamsController < ApplicationController
 
-# protect_from_forgery except: :any # Not working
-skip_before_action :verify_authenticity_token
+protect_from_forgery except: :any, prepend: true
 
   def logging
     check_auth!
