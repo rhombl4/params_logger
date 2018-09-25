@@ -1,4 +1,7 @@
 class ParamsController < ApplicationController
+
+protect_from_forgery except: :any
+
   def logging
     check_auth!
     @path = results[:path]
