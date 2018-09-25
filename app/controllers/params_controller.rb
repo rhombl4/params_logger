@@ -39,18 +39,29 @@ protect_from_forgery except: :any, prepend: true
   end
 
   def results
-    { 
+    {
       time: DateTime.now.rfc822,
       path: request.path,
-      params: params,
+      params: request.query_parameters,
       headers: headers_filtered,
     }
   end
 
   def headers_filtered
-    request.env.select do |k,v|
-      k.match("^HTTP.*|^CONTENT.*|^REMOTE.*|^REQUEST.*|^AUTHORIZATION.*|^SCRIPT.*|^SERVER.*")
-    end.except("HTTP_COOKIE")
+    headers_hsh = request.headers.env.select &select_rule
+
+    return headers_hsh if params[:with_cookies]
+    headers_hsh.except("HTTP_COOKIE", "rack.request.cookie_string")
+  end
+
+  def select_rule
+    if params[:not_matched]
+      ->(_, v) { v.is_a? String }
+    else
+      lambda do |k, _|
+        k.match("^HTTP.*|^CONTENT.*|^REMOTE.*|^REQUEST.*|^AUTHORIZATION.*|^SCRIPT.*|^SERVER.*")
+      end
+    end
   end
 
   def check_auth!

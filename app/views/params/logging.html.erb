@@ -8,8 +8,11 @@
 </style>
 <details>
   <h1>params-logger</h1>
-  <h2>History:</h2>
-  <pre id="history"></pre>
+  <p>
+    additional params in request ?not_matched=&with_cookies=</br>
+    not_matched for ignoring "^HTTP.*|^CONTENT.*|^REMOTE.*|^REQUEST.*|^AUTHORIZATION.*|^SCRIPT.*|^SERVER.*</br>
+    with_cookies for ignoring cookies cropping</br>
+  </p>
   <h2>Path:</h2>
   <pre id="Path">
     <%= @path %>
@@ -25,7 +28,7 @@
     <% end %>
   </code>
 </details>
-<h2>Notifications:</h2>
+<h2>History:</h2>
 <div id="notifications">
   <% @data.each do |item| -%>
     <pre class="jsonified"><%= item.to_json %></pre>
