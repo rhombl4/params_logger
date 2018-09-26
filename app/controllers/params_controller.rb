@@ -11,7 +11,11 @@ protect_from_forgery except: :any, prepend: true
   end
 
   def any
-    notify results
+    if params[:with_body]
+      notify results, request.body
+    else
+      notify results
+    end
     push_value results
 
     if params[:success] == 'false'
@@ -34,8 +38,10 @@ protect_from_forgery except: :any, prepend: true
 
   private
 
-  def notify(message = '')
-    ActionCable.server.broadcast "cb_notifications", message: message
+  def notify(message = '', body = nil)
+    content = { message: message }
+    content.merge!(body_content: body) if body
+    ActionCable.server.broadcast "cb_notifications", content
   end
 
   def results
